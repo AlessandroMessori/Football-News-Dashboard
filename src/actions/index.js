@@ -1,0 +1,44 @@
+import { getInitialData, getLastDate } from '../helpers/api'
+
+//filter actions
+export const filterChange = (value, source) => ({
+  type: 'FILTER_CHANGE',
+  value,
+  source
+})
+
+export const clearFilters = () => ({
+  type: 'CLEAR_FILTERS'
+})
+
+//api actions
+export const setLastDate = lastDate => ({
+  type: 'SET_LAST_DATE',
+  lastDate
+})
+
+//api actions
+export const setLoadingState = state => ({
+  type: 'SET_LOADING_STATE',
+  state
+})
+
+export const receiveInitialData = data => ({
+  type: 'RECEIVE_INITIAL_DATA',
+  data
+})
+
+//api thunks
+export const loadInitialData = () => dispatch => {
+  dispatch(setLoadingState(true))
+  dispatch(receiveInitialData([]))
+
+  return getLastDate().then(date => {
+    dispatch(setLastDate(date))
+    getInitialData(date).then(res => {
+      window.localStorage.setItem('redux-store', JSON.stringify(res))
+      dispatch(receiveInitialData(res))
+      dispatch(setLoadingState(false))
+    })
+  })
+}
