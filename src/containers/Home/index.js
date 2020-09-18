@@ -56,6 +56,7 @@ class HomePage extends React.Component {
                   key={topic.name}
                   name={topic.name}
                   count={topic.count}
+                  size='2'
                   percentage='+20%'
                 />
               ))}

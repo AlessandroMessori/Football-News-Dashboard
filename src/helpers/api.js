@@ -5,7 +5,8 @@ export const getLastDate = () => {
 }
 
 export const getInitialData = lastDate => {
-  return fetch(`${baseApiUrl}/counters?date=${lastDate}`).then(res =>
-    res.json()
-  )
+  return Promise.all([
+    fetch(`${baseApiUrl}/counters?date=${lastDate}`).then(res => res.json()),
+    fetch(`${baseApiUrl}/topics?limit=20`).then(res => res.json())
+  ])
 }

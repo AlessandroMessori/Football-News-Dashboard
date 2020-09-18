@@ -6,6 +6,8 @@ export const search = state => state.filters.search
 
 export const data = state => state.data
 
+export const topics = state => state.topics
+
 export const lastDate = state => {
   console.log(state)
   return state.lastDate

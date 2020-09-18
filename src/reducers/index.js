@@ -25,9 +25,19 @@ const data = (state = [], action) => {
   }
 }
 
+const topics = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_TOPICS':
+      return action.data
+    default:
+      return state
+  }
+}
+
 const rootReducer = {
   lastDate,
   data,
+  topics,
   loadingState
 }
 

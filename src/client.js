@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, hashHistory } from 'react-router'
+import { Router } from 'react-router'
 import { createStore, applyMiddleware, compose,combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import devToolsEnhancer from 'remote-redux-devtools'
 import rootReducer from './reducers'
+import { createHistory } from 'history'
 import routes from './routes'
 import './shared/scss/base.scss'
 
@@ -23,7 +24,7 @@ const store = createStore(reducers, enhancers)
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory} routes={routes} />
+    <Router history={createHistory()} routes={routes} />
   </Provider>,
   document.getElementById('root')
 )

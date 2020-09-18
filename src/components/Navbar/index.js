@@ -28,7 +28,7 @@ const Navbar = props => (
       >
         <ul className='nav navbar-nav navbar-right'>
           <li>
-            <a href='#'>Search Topic</a>
+            <a href='/search'>Search Topic</a>
           </li>
           <li>
             <a href='/category/teams'>Teams</a>

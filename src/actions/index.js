@@ -28,6 +28,11 @@ export const receiveInitialData = data => ({
   data
 })
 
+export const receiveTopics = data => ({
+  type: 'RECEIVE_TOPICS',
+  data
+})
+
 //api thunks
 export const loadInitialData = () => dispatch => {
   dispatch(setLoadingState(true))
@@ -37,7 +42,8 @@ export const loadInitialData = () => dispatch => {
     dispatch(setLastDate(date))
     getInitialData(date).then(res => {
       window.localStorage.setItem('redux-store', JSON.stringify(res))
-      dispatch(receiveInitialData(res))
+      dispatch(receiveInitialData(res[0]))
+      dispatch(receiveTopics(res[1]))
       dispatch(setLoadingState(false))
     })
   })
