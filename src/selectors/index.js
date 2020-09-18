@@ -17,11 +17,8 @@ export const mostCountedTopics = state => {
   const { data } = state
 
   const refs = window.location.href.split('/')
-  const isCategory = refs[refs.length - 3] === 'category'
-  const categoryName = refs[refs.length - 2].substring(
-    0,
-    refs[refs.length - 2].length - 2
-  )
+  const isCategory = refs[refs.length - 2] === 'category'
+  const categoryName = refs.pop().slice(0, -1)
 
   if (data === undefined || data.length === 0) return null
 
