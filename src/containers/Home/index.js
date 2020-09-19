@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { data, mostCountedTopics, lastDate } from '../../selectors'
+import Spinner from '../../components/Spinner'
 import DataCard from '../../components/DataCard'
 import Leaderboard from '../../components/Leaderboard'
 import Differential from '../../components/Differential'
@@ -45,13 +46,14 @@ class HomePage extends React.Component {
           </h2>
         )}
 
-        <h1>Today's Top 5 Trending Topics</h1>
-        <div id='top5' className='row'>
-          <div className='col-md-1' />
-          {this.props.mostCountedTopics &&
-            this.props.mostCountedTopics
-              .slice(0, 5)
-              .map(topic => (
+        {!this.props.mostCountedTopics && <Spinner />}
+
+        {this.props.mostCountedTopics && (
+          <div>
+            <h1>Today's Top 5 Trending Topics</h1>
+            <div id='top5' className='row'>
+              <div className='col-md-1' />
+              {this.props.mostCountedTopics.slice(0, 5).map(topic => (
                 <DataCard
                   key={topic.name}
                   name={topic.name}
@@ -60,7 +62,9 @@ class HomePage extends React.Component {
                   percentage='+20%'
                 />
               ))}
-        </div>
+            </div>
+          </div>
+        )}
         {this.props.mostCountedTopics && (
           <Leaderboard
             data={this.props.mostCountedTopics.slice(0, 20).map((topic, i) => ({
@@ -73,7 +77,9 @@ class HomePage extends React.Component {
             newData={newData}
           />
         )}
-        <Differential data={newData} diffData={diffData} />
+        {this.props.mostCountedTopics && (
+          <Differential data={newData} diffData={diffData} />
+        )}
       </section>
     )
   }

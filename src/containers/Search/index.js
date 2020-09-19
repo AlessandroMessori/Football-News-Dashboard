@@ -1,26 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { topics } from '../../selectors'
+import { filterChange, clearFilters } from '../../actions'
+import { topics, filters } from '../../selectors'
+import SearchBar from '../../components/SearchBar'
 import DataCard from '../../components/DataCard'
 import './index.scss'
 
-const mapDispatchToProps = dispatch => ({})
-
+const mapDispatchToProps = dispatch => ({
+  filterChange: (value, source) => dispatch(filterChange(value, source)),
+  clearFilters: () => dispatch(clearFilters())
+})
 const mapStateToProps = state => ({
-  topics: topics(state)
+  topics: topics(state),
+  filters: filters(state)
 })
 
 class SearchPage extends React.Component {
   render () {
-    console.log(this.props.topics)
     return (
       <section id='searchPage'>
         <h1> Search Page</h1>
+        <div id='searchSection'>
+          <SearchBar
+            id='searchBar1'
+            value={this.props.filters.name}
+            placeholder='Search By Name'
+            onChange={event => this.props.filterChange(event.target.value, 'name')}
+          />
+          <SearchBar
+            id='searchBar2'
+            value={this.props.filters.category}
+            placeholder='Search By Category'
+            onChange={event => this.props.filterChange(event.target.value, 'category')}
+          />
+        </div>
         <div id='resultsSection' className='row'>
           {this.props.topics.map(topic => (
             <DataCard
+              key={topic.name}
               className='resultCard'
-              key={topic.id}
               name={topic.name}
               count={topic.category}
               size='4'

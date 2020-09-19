@@ -34,11 +34,28 @@ const topics = (state = [], action) => {
   }
 }
 
+const filters = (state = { name: '', category: '' }, action) => {
+  switch (action.type) {
+    case 'FILTER_CHANGE':
+      const change = {}
+      change[action.source] = action.value
+      return {
+        ...state,
+        ...change
+      }
+    case 'CLEAR_FILTERS':
+      return { name: '', category: '' }
+    default:
+      return state
+  }
+}
+
 const rootReducer = {
   lastDate,
   data,
   topics,
-  loadingState
+  loadingState,
+  filters
 }
 
 export default rootReducer
