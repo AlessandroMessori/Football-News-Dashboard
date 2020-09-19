@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { filterChange, clearFilters, searchTopics } from '../../actions'
 import { topics, filters } from '../../selectors'
 import SearchBar from '../../components/SearchBar'
+import Spinner from '../../components/Spinner'
 import DataCard from '../../components/DataCard'
 import './index.scss'
 
@@ -17,11 +18,24 @@ const mapStateToProps = state => ({
 })
 
 class SearchPage extends React.Component {
+  constructor (props) {
+    super(props)
+    this.timeout = 0
+    this.search = this.search.bind(this)
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.filters !== nextProps.filters) {
-      console.log(nextProps.filters)
-      this.props.searchTopics(nextProps.filters)
+      if (this.timeout) clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.props.searchTopics(nextProps.filters)
+      }, 300)
     }
+  }
+
+  search (e, property) {
+    const val = e.target.value
+    this.props.filterChange(val, property)
   }
 
   render () {
@@ -33,20 +47,20 @@ class SearchPage extends React.Component {
             id='searchBar1'
             value={this.props.filters.name}
             placeholder='Search By Name'
-            onChange={event =>
-              this.props.filterChange(event.target.value, 'name')
-            }
+            onChange={event => {
+              console.log(event.target)
+              this.search(event, 'name')
+            }}
           />
           <SearchBar
             id='searchBar2'
             value={this.props.filters.category}
             placeholder='Search By Category'
-            onChange={event =>
-              this.props.filterChange(event.target.value, 'category')
-            }
+            onChange={event => this.search(event, 'category')}
           />
         </div>
         <div id='resultsSection' className='row'>
+          {this.props.topics.length === 0 && <Spinner />}
           {this.props.topics.map(topic => (
             <DataCard
               key={topic._id}
