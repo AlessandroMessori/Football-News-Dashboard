@@ -1,4 +1,4 @@
-import { getInitialData, getLastDate } from '../helpers/api'
+import { getInitialData, getLastDate, getTopics } from '../helpers/api'
 
 //filter actions
 export const filterChange = (value, source) => ({
@@ -46,5 +46,17 @@ export const loadInitialData = () => dispatch => {
       dispatch(receiveTopics(res[1]))
       dispatch(setLoadingState(false))
     })
+  })
+}
+
+export const searchTopics = filters => dispatch => {
+  dispatch(setLoadingState(true))
+  dispatch(receiveTopics([]))
+
+  const { name, category } = filters
+
+  return getTopics(name, category).then(topics => {
+    dispatch(receiveTopics(topics))
+    dispatch(setLoadingState(false))
   })
 }

@@ -4,6 +4,15 @@ export const getLastDate = () => {
   return fetch(`${baseApiUrl}/lastDate`).then(res => res.text())
 }
 
+export const getTopics = (name, category) => {
+  const nameQuery = name !== '' ? `name=${name}` : ''
+  const categoryQuery = category !== '' ? `category=${category}` : ''
+
+  return fetch(
+    `${baseApiUrl}/topics?limit=100&${nameQuery}&${categoryQuery}`
+  ).then(res => res.json())
+}
+
 export const getInitialData = lastDate => {
   return Promise.all([
     fetch(`${baseApiUrl}/counters?date=${lastDate}`).then(res => res.json()),
