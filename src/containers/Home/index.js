@@ -1,24 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { data, mostCountedTopics, lastDate } from '../../selectors'
+import { data, mostCountedTopics, lastDate, mostGained } from '../../selectors'
 import Spinner from '../../components/Spinner'
 import DataCard from '../../components/DataCard'
 import Leaderboard from '../../components/Leaderboard'
 import Differential from '../../components/Differential'
 import './index.scss'
-
-const diffData = [
-  { y: -5, x: -124 },
-  { y: -4, x: -80 },
-  { y: -3, x: -75 },
-  { y: -2, x: -21 },
-  { y: -1, x: -15 },
-  { y: 0, x: 101 },
-  { y: 1, x: 80 },
-  { y: 2, x: 62 },
-  { y: 3, x: 41 },
-  { y: 4, x: 5 }
-]
 
 const newData = [
   { x: 0, y: 35 },
@@ -32,6 +19,7 @@ const mapDispatchToProps = dispatch => ({})
 const mapStateToProps = state => ({
   data: data(state),
   mostCountedTopics: mostCountedTopics(state),
+  mostGainedTopics: mostGained(state),
   lastDate: lastDate(state)
 })
 
@@ -78,7 +66,14 @@ class HomePage extends React.Component {
           />
         )}
         {this.props.mostCountedTopics && (
-          <Differential data={newData} diffData={diffData} />
+          <Differential
+            data={newData}
+            labels={this.props.mostGainedTopics.map(item => item.name)}
+            diffData={this.props.mostGainedTopics.map((topic, i) => ({
+              y: i,
+              x: topic.delta
+            }))}
+          />
         )}
       </section>
     )

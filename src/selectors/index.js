@@ -10,10 +10,15 @@ export const filters = state => state.filters
 
 export const topics = state => state.topics
 
-export const lastDate = state => {
-  console.log(state)
-  return state.lastDate
-}
+export const mostGained = state => [
+  ...state.mostGained.slice(0, 5),
+  ...state.mostGained.slice(
+    state.mostGained.length - 6,
+    state.mostGained.length - 1
+  )
+]
+
+export const lastDate = state => state.lastDate
 
 export const mostCountedTopics = state => {
   const { data } = state

@@ -12,7 +12,12 @@ const Differential = props => {
           width={(document.body.clientWidth / 5) * 2}
           className='leaderboardPlot'
         >
-          <HorizontalBarSeries data={props.diffData} />
+          <HorizontalBarSeries
+            onNearestX={(value, { index }) => {
+              console.log(props.labels[index], value)
+            }}
+            data={props.diffData}
+          />
         </XYPlot>
       </div>
       <div className='col-md-6'>

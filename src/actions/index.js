@@ -33,6 +33,11 @@ export const receiveTopics = data => ({
   data
 })
 
+export const receiveMostGained = data => ({
+  type: 'RECEIVE_MOST_GAINED',
+  data
+})
+
 //api thunks
 export const loadInitialData = () => dispatch => {
   dispatch(setLoadingState(true))
@@ -44,6 +49,7 @@ export const loadInitialData = () => dispatch => {
       window.localStorage.setItem('redux-store', JSON.stringify(res))
       dispatch(receiveInitialData(res[0]))
       dispatch(receiveTopics(res[1]))
+      dispatch(receiveMostGained(res[2]))
       dispatch(setLoadingState(false))
     })
   })
