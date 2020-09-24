@@ -13,6 +13,10 @@ export const getTopics = (name, category) => {
   ).then(res => res.json())
 }
 
+export const getTopicCounters = topicName => {
+  return fetch(`${baseApiUrl}/counters/${topicName}`).then(res => res.json())
+}
+
 export const getInitialData = lastDate => {
   return Promise.all([
     fetch(`${baseApiUrl}/counters?date=${lastDate}`).then(res => res.json()),

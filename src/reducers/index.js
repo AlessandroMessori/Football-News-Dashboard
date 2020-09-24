@@ -34,6 +34,15 @@ const topics = (state = [], action) => {
   }
 }
 
+const currentTopic = (state = { name: '', counts: [] }, action) => {
+  switch (action.type) {
+    case 'RECEIVE_CURRENT_TOPIC_DATA':
+      return action.data
+    default:
+      return state
+  }
+}
+
 const mostGained = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_MOST_GAINED':
@@ -63,6 +72,7 @@ const rootReducer = {
   lastDate,
   data,
   topics,
+  currentTopic,
   mostGained,
   loadingState,
   filters

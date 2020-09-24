@@ -4,7 +4,7 @@ import { filterChange, clearFilters, searchTopics } from '../../actions'
 import { topics, filters } from '../../selectors'
 import SearchBar from '../../components/SearchBar'
 import Spinner from '../../components/Spinner'
-import DataCard from '../../components/DataCard'
+import LinkCard from '../../components/LinkCard'
 import './index.scss'
 
 const mapDispatchToProps = dispatch => ({
@@ -62,7 +62,7 @@ class SearchPage extends React.Component {
         <div id='resultsSection' className='row'>
           {this.props.topics.length === 0 && <Spinner />}
           {this.props.topics.map(topic => (
-            <DataCard
+            <LinkCard
               key={topic._id}
               className='resultCard'
               name={topic.name}

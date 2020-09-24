@@ -1,4 +1,9 @@
-import { getInitialData, getLastDate, getTopics } from '../helpers/api'
+import {
+  getInitialData,
+  getLastDate,
+  getTopics,
+  getTopicCounters
+} from '../helpers/api'
 
 //filter actions
 export const filterChange = (value, source) => ({
@@ -38,6 +43,11 @@ export const receiveMostGained = data => ({
   data
 })
 
+export const receiveCurrentTopicData = data => ({
+  type: 'RECEIVE_CURRENT_TOPIC_DATA',
+  data
+})
+
 //api thunks
 export const loadInitialData = () => dispatch => {
   dispatch(setLoadingState(true))
@@ -63,6 +73,16 @@ export const searchTopics = filters => dispatch => {
 
   return getTopics(name, category).then(topics => {
     dispatch(receiveTopics(topics))
+    dispatch(setLoadingState(false))
+  })
+}
+
+export const loadCurrentTopicData = name => dispatch => {
+  dispatch(setLoadingState(true))
+  dispatch(receiveCurrentTopicData({ name: '', counts: [] }))
+
+  return getTopicCounters(name).then(topicCounters => {
+    dispatch(receiveCurrentTopicData(topicCounters))
     dispatch(setLoadingState(false))
   })
 }

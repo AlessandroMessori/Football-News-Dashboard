@@ -1,6 +1,10 @@
 import React from 'react'
 import {
   XYPlot,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
   VerticalBarSeries,
   Crosshair
 } from 'react-vis'
@@ -38,6 +42,10 @@ class Leaderboard extends React.Component {
             width={(document.body.clientWidth / 5) * 2}
             className='leaderboardPlot'
           >
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <XAxis />
+            <YAxis />
             <VerticalBarSeries
               data={this.props.data}
               onNearestX={(value, { index }) => {

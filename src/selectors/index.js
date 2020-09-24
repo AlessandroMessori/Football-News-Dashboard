@@ -10,6 +10,8 @@ export const filters = state => state.filters
 
 export const topics = state => state.topics
 
+export const currentTopic = state => state.currentTopic
+
 export const mostGained = state => [
   ...state.mostGained.slice(0, 5),
   ...state.mostGained.slice(
