@@ -43,6 +43,11 @@ export const receiveMostGained = data => ({
   data
 })
 
+export const receiveNewComers = data => ({
+  type: 'RECEIVE_NEW_COMERS',
+  data
+})
+
 export const receiveCurrentTopicData = data => ({
   type: 'RECEIVE_CURRENT_TOPIC_DATA',
   data
@@ -60,6 +65,7 @@ export const loadInitialData = () => dispatch => {
       dispatch(receiveInitialData(res[0]))
       dispatch(receiveTopics(res[1]))
       dispatch(receiveMostGained(res[2]))
+      dispatch(receiveNewComers(res[3]))
       dispatch(setLoadingState(false))
     })
   })

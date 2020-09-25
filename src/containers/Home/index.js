@@ -1,6 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { data, mostCountedTopics, lastDate, mostGained } from '../../selectors'
+import {
+  data,
+  mostCountedTopics,
+  lastDate,
+  mostGained,
+  newComers
+} from '../../selectors'
 import Spinner from '../../components/Spinner'
 import DataCard from '../../components/DataCard'
 import Leaderboard from '../../components/Leaderboard'
@@ -20,11 +26,13 @@ const mapStateToProps = state => ({
   data: data(state),
   mostCountedTopics: mostCountedTopics(state),
   mostGainedTopics: mostGained(state),
-  lastDate: lastDate(state)
+  lastDate: lastDate(state),
+  newComers: newComers(state)
 })
 
 class HomePage extends React.Component {
   render () {
+    console.log(this.props.newComers)
     return (
       <section id='homePage'>
         <h1 id='mainTitle'>Football Topics DataVIZ</h1>
@@ -67,12 +75,16 @@ class HomePage extends React.Component {
         )}
         {this.props.mostCountedTopics && (
           <Differential
-            data={newData}
-            labels={this.props.mostGainedTopics.map(item => item.name)}
+            newComersData={this.props.newComers.map((topic, i) => ({
+              x: i,
+              y: topic.count
+            }))}
+            newComersLabels={this.props.newComers.map(item => item.name)}
             diffData={this.props.mostGainedTopics.map((topic, i) => ({
               y: i,
               x: topic.delta
             }))}
+            diffLabels={this.props.mostGainedTopics.map(item => item.name)}
           />
         )}
       </section>

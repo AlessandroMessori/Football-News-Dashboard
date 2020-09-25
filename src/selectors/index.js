@@ -20,6 +20,8 @@ export const mostGained = state => [
   )
 ]
 
+export const newComers = state => state.newComers.slice(0, 10)
+
 export const lastDate = state => state.lastDate
 
 export const mostCountedTopics = state => {

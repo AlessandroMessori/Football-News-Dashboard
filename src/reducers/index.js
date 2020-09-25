@@ -52,6 +52,15 @@ const mostGained = (state = [], action) => {
   }
 }
 
+const newComers = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_NEW_COMERS':
+      return action.data
+    default:
+      return state
+  }
+}
+
 const filters = (state = { name: '', category: '' }, action) => {
   switch (action.type) {
     case 'FILTER_CHANGE':
@@ -74,6 +83,7 @@ const rootReducer = {
   topics,
   currentTopic,
   mostGained,
+  newComers,
   loadingState,
   filters
 }
