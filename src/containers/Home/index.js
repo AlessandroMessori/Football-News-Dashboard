@@ -13,13 +13,6 @@ import Leaderboard from '../../components/Leaderboard'
 import Differential from '../../components/Differential'
 import './index.scss'
 
-const newData = [
-  { x: 0, y: 35 },
-  { x: 1, y: 20 },
-  { x: 2, y: 7 },
-  { x: 3, y: 2 }
-]
-
 const mapDispatchToProps = dispatch => ({})
 
 const mapStateToProps = state => ({
@@ -63,27 +56,21 @@ class HomePage extends React.Component {
         )}
         {this.props.mostCountedTopics && (
           <Leaderboard
-            data={this.props.mostCountedTopics.slice(0, 20).map((topic, i) => ({
-              x: i,
-              y: topic.count
-            }))}
-            labels={this.props.mostCountedTopics
+            data={this.props.mostCountedTopics
               .slice(0, 20)
-              .map(item => item.name)}
-            newData={newData}
+              .map((topic, i) => [topic.name, topic.count])}
           />
         )}
         {this.props.mostCountedTopics && (
           <Differential
-            newComersData={this.props.newComers.map((topic, i) => ({
-              x: i,
-              y: topic.count
-            }))}
-            newComersLabels={this.props.newComers.map(item => item.name)}
-            diffData={this.props.mostGainedTopics.map((topic, i) => ({
-              y: i,
-              x: topic.delta
-            }))}
+            newComersData={this.props.newComers.map(({ name, count }) => [
+              name,
+              count
+            ])}
+            diffData={this.props.mostGainedTopics.map(({ name, delta }) => [
+              name,
+              delta
+            ])}
             diffLabels={this.props.mostGainedTopics.map(item => item.name)}
           />
         )}

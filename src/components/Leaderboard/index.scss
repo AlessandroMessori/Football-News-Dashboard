@@ -1,21 +1,22 @@
 #leaderBoard {
-    margin-top: 3%;
+  margin-top: 3%;
+  margin-left: 5%;
 
-    .leaderboardPlot{
-        margin: 0 10%;
+  .leaderboardPlot {
+    margin: 0 10%;
+  }
+
+  .counterCard {
+    border: 2px white solid;
+    margin-top: 4%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    padding: 1.5%;
+    max-width: 80%;
+    text-align: center;
+
+    .cardItem {
+      padding: 5% 10%;
     }
-
-    .counterCard {
-        border: 2px white solid;
-        margin-top: 4%;
-        margin-left: 10%;
-        margin-bottom: 5%;
-        padding: 1.5%;
-        max-width: 80%;
-        text-align: center;
-
-        .cardItem {
-            padding: 5% 10%;
-        }
-    }
+  }
 }

@@ -1,13 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  LineMarkSeries
-} from 'react-vis'
+import { LineChart, PieChart } from 'react-chartkick'
+import 'chart.js'
 import { loadCurrentTopicData } from '../../actions'
 import { location, lastDate, currentTopic } from '../../selectors'
 import Spinner from '../../components/Spinner'
@@ -29,6 +23,16 @@ class TopicPage extends React.Component {
     this.props.loadCurrentTopicData(this.props.location)
   }
 
+  getTopicCounts () {
+    const countItem = {}
+
+    this.props.currentTopic.counts.forEach(({ _id, count }) => {
+      countItem[_id] = count
+    })
+
+    return countItem
+  }
+
   render () {
     const { currentTopic } = this.props
     const { counts } = currentTopic
@@ -38,6 +42,14 @@ class TopicPage extends React.Component {
     const countAvg = Math.round((totalCounts / counts.length) * 10) / 10
     const maxCount = Math.max(...countsVals)
     const minCount = Math.min(...countsVals)
+
+    console.log(
+      currentTopic.counts.map(({ _id, count }) => {
+        const countItem = {}
+        countItem[_id] = count
+        return countItem
+      })
+    )
 
     return (
       <section id='topicPage'>
@@ -60,21 +72,7 @@ class TopicPage extends React.Component {
               <DataCard name='Min Count' count={minCount} size='2' />
             </div>
             <div id='countPlot'>
-              <XYPlot height={500} width={(document.body.clientWidth / 5) * 3}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                <YAxis />
-                <LineMarkSeries
-                  className='linemark-series-example'
-                  lineStyle={{ stroke: 'white' }}
-                  markStyle={{ stroke: 'white' }}
-                  data={counts.map((item, i) => ({
-                    x: i,
-                    y: item.count
-                  }))}
-                />
-              </XYPlot>
+              <LineChart data={this.getTopicCounts()} />
             </div>
           </div>
         )}

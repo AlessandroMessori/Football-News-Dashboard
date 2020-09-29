@@ -1,5 +1,6 @@
 import React from 'react'
-import { XYPlot, VerticalBarSeries, HorizontalBarSeries } from 'react-vis'
+import 'chart.js'
+import { ColumnChart, BarChart } from 'react-chartkick'
 import './index.scss'
 
 const Differential = props => {
@@ -7,33 +8,11 @@ const Differential = props => {
     <div id='differential' className='row'>
       <div className='col-md-6'>
         <h1>Most Gained and Lost</h1>
-        <XYPlot
-          height={350}
-          width={(document.body.clientWidth / 5) * 2}
-          className='leaderboardPlot'
-        >
-          <HorizontalBarSeries
-            onNearestX={(value, { index }) => {
-              console.log(props.diffLabels[index], value)
-            }}
-            data={props.diffData}
-          />
-        </XYPlot>
+        <BarChart data={props.diffData} />
       </div>
       <div className='col-md-6'>
         <h1>Newcomers</h1>
-        <XYPlot
-          height={350}
-          width={(document.body.clientWidth / 5) * 2}
-          className='leaderboardPlot'
-        >
-          <VerticalBarSeries
-            data={props.newComersData}
-            onNearestX={(value, { index }) => {
-              console.log(props.newComersLabels[index], value)
-            }}
-          />
-        </XYPlot>
+        <ColumnChart data={props.newComersData} />
       </div>
     </div>
   )

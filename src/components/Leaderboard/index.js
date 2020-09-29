@@ -1,27 +1,7 @@
 import React from 'react'
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  VerticalBarSeries,
-  Crosshair
-} from 'react-vis'
+import 'chart.js'
+import { ColumnChart } from 'react-chartkick'
 import './index.scss'
-
-const DATA = [
-  [
-    { x: 1, y: 10 },
-    { x: 2, y: 7 },
-    { x: 3, y: 15 }
-  ],
-  [
-    { x: 1, y: 20 },
-    { x: 2, y: 5 },
-    { x: 3, y: 15 }
-  ]
-]
 
 class Leaderboard extends React.Component {
   constructor (props) {
@@ -37,26 +17,9 @@ class Leaderboard extends React.Component {
       <div id='leaderBoard' className='row'>
         <div className='col-md-6'>
           <h1>Leaderboard</h1>
-          <XYPlot
-            height={350}
-            width={(document.body.clientWidth / 5) * 2}
-            className='leaderboardPlot'
-          >
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis />
-            <YAxis />
-            <VerticalBarSeries
-              data={this.props.data}
-              onNearestX={(value, { index }) => {
-                console.log(this.props.labels[index], value)
-                this.setState({
-                  crosshairValues: DATA.map(d => d[index])
-                })
-              }}
-            />
-            <Crosshair values={this.state.crosshairValues} />
-          </XYPlot>
+          <ColumnChart
+            data={this.props.data}
+          />
         </div>
         <div className='col-md-6'>
           <h1>General Statistics</h1>
