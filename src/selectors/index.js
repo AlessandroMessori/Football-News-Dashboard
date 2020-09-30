@@ -12,15 +12,29 @@ export const topics = state => state.topics
 
 export const currentTopic = state => state.currentTopic
 
-export const mostGained = state => [
-  ...state.mostGained.slice(0, 5),
-  ...state.mostGained.slice(
-    state.mostGained.length - 6,
-    state.mostGained.length - 1
-  )
-]
+export const mostGained = state => {
+  const refs = window.location.href.split('/')
+  const isCategory = refs[refs.length - 2] === 'category'
+  const categoryName = refs.pop().slice(0, -1)
 
-export const newComers = state => state.newComers.slice(0, 10)
+  return [
+    ...state.mostGained.slice(0, 5),
+    ...state.mostGained.slice(
+      state.mostGained.length - 6,
+      state.mostGained.length - 1
+    )
+  ].filter(item => !isCategory || item.category === categoryName)
+}
+
+export const newComers = state => {
+  const refs = window.location.href.split('/')
+  const isCategory = refs[refs.length - 2] === 'category'
+  const categoryName = refs.pop().slice(0, -1)
+
+  return state.newComers
+    .filter(item => !isCategory || item.category === categoryName)
+    .slice(0, 10)
+}
 
 export const lastDate = state => state.lastDate
 

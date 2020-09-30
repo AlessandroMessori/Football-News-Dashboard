@@ -1,5 +1,5 @@
 #topicPage {
-  padding-top: 3%;
+  padding: 3%;
   color: white;
 
   #mainTitle {
@@ -11,13 +11,7 @@
     margin-bottom: 3%;
   }
 
-  #countPlot {
-    color: white;
-    margin: 5%;
-    margin-right: 10%;
-  }
-
-  text {
-    fill: white !important;
+  #dataRow {
+    margin: 5% 0 0 8%;
   }
 }

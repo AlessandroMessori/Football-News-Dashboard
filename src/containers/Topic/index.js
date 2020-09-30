@@ -71,8 +71,20 @@ class TopicPage extends React.Component {
               <DataCard name='Max Count' count={maxCount} size='2' />
               <DataCard name='Min Count' count={minCount} size='2' />
             </div>
-            <div id='countPlot'>
-              <LineChart data={this.getTopicCounts()} />
+            <div id='dataRow' className='row'>
+              <div id='countPlot' className='col-md-6'>
+                <h2>Counts </h2>
+                <LineChart data={this.getTopicCounts()} />
+              </div>
+              <div id='countPlot2' className='col-md-6'>
+                <h2>Language Distribution </h2>
+                <PieChart
+                  data={[
+                    ['Italian', 44],
+                    ['English', 23]
+                  ]}
+                />
+              </div>
             </div>
           </div>
         )}
